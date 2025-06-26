@@ -445,19 +445,30 @@ async def financial_chat(chat_message: ChatMessage):
 def generate_financial_advice(message_lower, user_age, user_income, risk_category):
     """Generate intelligent financial advice based on user query and profile"""
     
-    # Investment advice patterns
-    if any(word in message_lower for word in ['invest', 'investment', 'money', 'portfolio', 'asset']):
-        if user_age < 30:
-            return f"At {user_age}, you have time on your side! Consider 70-80% equity allocation through SIP in diversified mutual funds like HDFC Top 100 or SBI Bluechip. Start with ₹{min(user_income//10, 10000)} monthly SIP. Focus on large-cap and mid-cap funds for long-term wealth creation."
-        elif user_age < 45:
-            return f"For your age ({user_age}), a balanced 60-70% equity and 30-40% debt allocation works well. Consider index funds, ELSS for tax saving, and debt funds for stability. Monthly SIP of ₹{min(user_income//8, 15000)} across diversified equity funds is recommended."
-        else:
-            return f"At {user_age}, focus on capital preservation with 50-60% debt and 40-50% equity. Consider balanced hybrid funds, FDs, and PPF. Prioritize liquid funds for emergency corpus and stable income sources."
+    # Emergency fund queries (check first to avoid "fund" matching mutual funds)
+    if 'emergency' in message_lower or ('emergency fund' in message_lower):
+        emergency_fund = user_income * 6
+        return f"Maintain 6-12 months of expenses (approximately ₹{emergency_fund:,.0f}) in liquid funds or high-yield savings accounts. Consider SBI Liquid Fund, HDFC Liquid Fund, or sweep-in FDs. This should be your first priority before any other investment."
     
     # SIP related queries
     elif any(word in message_lower for word in ['sip', 'systematic', 'monthly']):
         sip_amount = min(user_income // 10, 10000)
         return f"SIP is excellent for disciplined investing! Start with ₹{sip_amount} monthly across 2-3 diversified equity funds. Consider SBI Bluechip Fund, HDFC Top 100, and Mirae Asset Large Cap Fund. Increase SIP by 10% annually as your income grows."
+    
+    # Tax saving queries
+    elif any(word in message_lower for word in ['tax', 'save', '80c', 'elss']):
+        return f"For tax saving under Section 80C, ELSS mutual funds are best with 3-year lock-in and market-linked returns. Top ELSS funds: Axis Long Term Equity Fund, Mirae Asset Tax Saver Fund. You can save ₹46,800 tax annually on ₹1.5L investment. Also consider PPF, NSC, and ULIP."
+    
+    # Retirement planning
+    elif any(word in message_lower for word in ['retirement', 'pension', 'retire']):
+        if user_age < 35:
+            return f"Start early for retirement! Invest ₹{min(user_income//5, 20000)} monthly in equity funds for 25-30 years. Consider NPS for additional tax benefits. With inflation, you'll need ₹5-10 crores for comfortable retirement. Time is your biggest asset!"
+        else:
+            return f"Retirement planning is crucial at {user_age}. Increase equity allocation to 60-70% if possible. Consider NPS, PPF, and equity mutual funds. Calculate your retirement corpus needs and invest accordingly. Consider consulting a certified financial planner."
+    
+    # Stock market queries
+    elif any(word in message_lower for word in ['stock', 'share', 'equity', 'nse', 'bse']):
+        return f"For direct stock investing, start with blue-chip stocks like Reliance, TCS, HDFC Bank, ICICI Bank. Invest only 20-30% of your portfolio in individual stocks. Consider sectors like IT, Banking, and Consumer goods. Always diversify and invest only surplus money."
     
     # Mutual fund queries
     elif any(word in message_lower for word in ['mutual fund', 'fund', 'mf']):
@@ -468,29 +479,18 @@ def generate_financial_advice(message_lower, user_age, user_income, risk_categor
         else:
             return "For moderate risk, blend large-cap (50%), mid-cap (30%), and debt funds (20%). Top picks: HDFC Top 100, SBI Magnum Midcap, HDFC Short Term Debt Fund. This gives 12-15% potential returns with manageable risk."
     
-    # Stock market queries
-    elif any(word in message_lower for word in ['stock', 'share', 'equity', 'nse', 'bse']):
-        return f"For direct stock investing, start with blue-chip stocks like Reliance, TCS, HDFC Bank, ICICI Bank. Invest only 20-30% of your portfolio in individual stocks. Consider sectors like IT, Banking, and Consumer goods. Always diversify and invest only surplus money."
-    
-    # Tax saving queries
-    elif any(word in message_lower for word in ['tax', 'save', '80c', 'elss']):
-        return f"For tax saving under Section 80C, ELSS mutual funds are best with 3-year lock-in and market-linked returns. Top ELSS funds: Axis Long Term Equity Fund, Mirae Asset Tax Saver Fund. You can save ₹46,800 tax annually on ₹1.5L investment. Also consider PPF, NSC, and ULIP."
-    
-    # Emergency fund queries
-    elif any(word in message_lower for word in ['emergency', 'liquid', 'cash']) or 'emergency fund' in message_lower:
-        emergency_fund = user_income * 6
-        return f"Maintain 6-12 months of expenses (approximately ₹{emergency_fund:,.0f}) in liquid funds or high-yield savings accounts. Consider SBI Liquid Fund, HDFC Liquid Fund, or sweep-in FDs. This should be your first priority before any other investment."
-    
-    # Retirement planning
-    elif any(word in message_lower for word in ['retirement', 'pension', 'retire']):
-        if user_age < 35:
-            return f"Start early for retirement! Invest ₹{min(user_income//5, 20000)} monthly in equity funds for 25-30 years. Consider NPS for additional tax benefits. With inflation, you'll need ₹5-10 crores for comfortable retirement. Time is your biggest asset!"
-        else:
-            return f"Retirement planning is crucial at {user_age}. Increase equity allocation to 60-70% if possible. Consider NPS, PPF, and equity mutual funds. Calculate your retirement corpus needs and invest accordingly. Consider consulting a certified financial planner."
-    
     # Risk assessment queries
     elif any(word in message_lower for word in ['risk', 'safe', 'conservative', 'aggressive']):
         return f"Your risk profile is {risk_category}. This means you should allocate your portfolio accordingly. Conservative investors: 30% equity, 70% debt. Moderate: 60% equity, 40% debt. Aggressive: 80% equity, 20% debt. Always align investments with your risk tolerance and goals."
+    
+    # Investment advice patterns (more general, so put after specific queries)
+    elif any(word in message_lower for word in ['invest', 'investment', 'money', 'portfolio', 'asset']):
+        if user_age < 30:
+            return f"At {user_age}, you have time on your side! Consider 70-80% equity allocation through SIP in diversified mutual funds like HDFC Top 100 or SBI Bluechip. Start with ₹{min(user_income//10, 10000)} monthly SIP. Focus on large-cap and mid-cap funds for long-term wealth creation."
+        elif user_age < 45:
+            return f"For your age ({user_age}), a balanced 60-70% equity and 30-40% debt allocation works well. Consider index funds, ELSS for tax saving, and debt funds for stability. Monthly SIP of ₹{min(user_income//8, 15000)} across diversified equity funds is recommended."
+        else:
+            return f"At {user_age}, focus on capital preservation with 50-60% debt and 40-50% equity. Consider balanced hybrid funds, FDs, and PPF. Prioritize liquid funds for emergency corpus and stable income sources."
     
     # General advice or unclear queries
     else:
