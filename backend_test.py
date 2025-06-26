@@ -259,6 +259,9 @@ class FinancialAdvisorAPITester:
         # Test chat
         self.test_chat()
         
+        # Test multiple chat scenarios
+        self.test_chat_scenarios()
+        
         # Test portfolio
         self.test_portfolio()
         
