@@ -477,7 +477,7 @@ def generate_financial_advice(message_lower, user_age, user_income, risk_categor
         return f"For tax saving under Section 80C, ELSS mutual funds are best with 3-year lock-in and market-linked returns. Top ELSS funds: Axis Long Term Equity Fund, Mirae Asset Tax Saver Fund. You can save ₹46,800 tax annually on ₹1.5L investment. Also consider PPF, NSC, and ULIP."
     
     # Emergency fund queries
-    elif any(word in message_lower for word in ['emergency', 'fund', 'liquid', 'cash']):
+    elif any(word in message_lower for word in ['emergency', 'liquid', 'cash']) or 'emergency fund' in message_lower:
         emergency_fund = user_income * 6
         return f"Maintain 6-12 months of expenses (approximately ₹{emergency_fund:,.0f}) in liquid funds or high-yield savings accounts. Consider SBI Liquid Fund, HDFC Liquid Fund, or sweep-in FDs. This should be your first priority before any other investment."
     
