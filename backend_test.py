@@ -170,10 +170,10 @@ class FinancialAdvisorAPITester:
             data=test_profile
         )
 
-    def test_chat(self):
-        """Test the chat endpoint"""
+    def test_chat(self, message="What are the best investment options for a 30-year-old with moderate risk tolerance?"):
+        """Test the chat endpoint with a specific message"""
         chat_data = {
-            "message": "What are the best investment options for a 30-year-old with moderate risk tolerance?",
+            "message": message,
             "user_context": {
                 "risk_category": "Moderate Risk",
                 "age": 30,
@@ -182,12 +182,45 @@ class FinancialAdvisorAPITester:
         }
         
         return self.run_test(
-            "AI Chat",
+            f"AI Chat: {message[:30]}...",
             "POST",
             "/api/chat",
             200,
             data=chat_data
         )
+        
+    def test_chat_scenarios(self):
+        """Test the chat endpoint with various financial questions"""
+        chat_questions = [
+            "How much emergency fund should I keep?",
+            "What should I invest in?",
+            "Should I start SIP?",
+            "Which mutual funds are good?",
+            "How to save taxes?",
+            "Should I invest in stocks?",
+            "How to plan for retirement?"
+        ]
+        
+        results = []
+        for question in chat_questions:
+            success, response = self.test_chat(question)
+            results.append({
+                "question": question,
+                "success": success,
+                "response": response
+            })
+            
+        # Print summary of chat tests
+        print("\n" + "=" * 80)
+        print("📱 Chat Functionality Test Results:")
+        for result in results:
+            status = "✅" if result["success"] else "❌"
+            print(f"{status} Question: {result['question']}")
+            if result["success"] and result["response"]:
+                print(f"   Response: {result['response']['response'][:100]}...")
+        
+        # Return overall success
+        return all(result["success"] for result in results), results
 
     def test_portfolio(self):
         """Test the portfolio endpoint"""
