@@ -1,38 +1,598 @@
+/* Modern AI Financial Advisor Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
 .App {
-    text-align: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Profile Form Styles */
+.profile-form {
+  padding: 40px;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
+.form-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.form-header h2 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+/* Market Overview */
+.market-overview {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.market-overview h3 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.market-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.market-card h4 {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.market-card p {
+  color: white;
+  font-weight: 600;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.form-section {
+  background: #f8fafc;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #e2e8f0;
+}
+
+.form-section.full-width {
+  grid-column: 1 / -1;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Goals Grid */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.goal-card {
+  padding: 15px 20px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.goal-card:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+}
+
+.goal-card.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Results Section */
+.results-container {
+  padding: 40px;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.results-header h2 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Risk Assessment Card */
+.risk-card {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.risk-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.risk-score {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.score-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.score-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.category-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.category-badge.high-risk {
+  background: #ef4444;
+  color: white;
+}
+
+.category-badge.moderate-risk {
+  background: #f59e0b;
+  color: white;
+}
+
+.category-badge.low-risk {
+  background: #10b981;
+  color: white;
+}
+
+/* Recommendations Section */
+.recommendations-section {
+  margin-bottom: 40px;
+}
+
+.ai-reasoning {
+  margin-bottom: 30px;
+}
+
+.reasoning-card {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  padding: 25px;
+  border-radius: 15px;
+  color: #1f2937;
+}
+
+.reasoning-card h4 {
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+
+/* Allocation Chart */
+.allocation-chart {
+  background: #f8fafc;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.allocation-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.allocation-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.allocation-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.allocation-bar {
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.allocation-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 6px;
+  transition: width 1s ease;
+}
+
+/* Recommendations List */
+.recommendations-list {
+  display: grid;
+  gap: 20px;
+}
+
+.recommendation-card {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 15px;
+  padding: 25px;
+  transition: all 0.3s ease;
+}
+
+.recommendation-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+}
+
+.rec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rec-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.rec-allocation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.allocation-percent {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.allocation-amount {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.rec-rationale {
+  color: #6b7280;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.rec-instruments {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 15px;
+}
+
+.rec-instruments ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.rec-instruments li {
+  background: #f3f4f6;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* Chat Section */
+.chat-section {
+  background: #f8fafc;
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.chat-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.chat-history {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.chat-message {
+  margin-bottom: 15px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+
+.chat-message.user {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin-left: auto;
+  text-align: right;
+}
+
+.chat-message.ai {
+  background: #f3f4f6;
+  color: #374151;
+  margin-right: auto;
+}
+
+.message-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ai-icon {
+  font-size: 1.2rem;
+}
+
+.chat-input {
+  display: flex;
+  gap: 12px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.chat-input input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.send-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.send-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* New Analysis Button */
+.new-analysis-btn {
+  width: 100%;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.new-analysis-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+  
+  .profile-form,
+  .results-container {
+    padding: 20px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .form-header h2 {
+    font-size: 2rem;
+  }
+  
+  .goals-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .rec-header {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    align-items: flex-start;
+  }
+  
+  .rec-allocation {
+    align-items: flex-start;
+  }
+  
+  .risk-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .chat-message {
+    max-width: 95%;
+  }
 }
 
-.App-link {
-    color: #61dafb;
+/* Loading Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.submit-btn:disabled {
+  animation: pulse 2s infinite;
+}
+
+/* Smooth Transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Custom Scrollbar */
+.chat-history::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-history::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.chat-history::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+.chat-history::-webkit-scrollbar-thumb:hover {
+  background: #5a67d8;
 }
